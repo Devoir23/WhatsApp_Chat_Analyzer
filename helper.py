@@ -45,6 +45,11 @@ def create_wordcloud(selected_user,df):
 
     temp = df[df['user'] != 'group_notification']
     temp = temp[temp['message'] != '<Media omitted>\n']
+    # Ensure 'message' column is of data type string
+    temp['message'] = temp['message'].astype(str)
+    # Check for and handle any non-string values in 'message'
+    # For example, if there are NaN values, you can fill them with an empty string:
+    temp['message'] = temp['message'].fillna('')
 
     def remove_stop_words(message):
         y = []
