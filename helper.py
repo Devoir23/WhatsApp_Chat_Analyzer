@@ -35,8 +35,7 @@ def most_busy_users(df):
         columns={'index': 'name', 'user': 'percent'})
     return x,df
 
-def create_wordcloud(selected_user,df):
-
+def create_wordcloud(selected_user, df):
     f = open('stop_hinglish.txt', 'r')
     stop_words = f.read()
 
@@ -45,8 +44,10 @@ def create_wordcloud(selected_user,df):
 
     temp = df[df['user'] != 'group_notification']
     temp = temp[temp['message'] != '<Media omitted>\n']
+
     # Ensure 'message' column is of data type string
     temp['message'] = temp['message'].astype(str)
+
     # Check for and handle any non-string values in 'message'
     # For example, if there are NaN values, you can fill them with an empty string:
     temp['message'] = temp['message'].fillna('')
@@ -58,9 +59,13 @@ def create_wordcloud(selected_user,df):
                 y.append(word)
         return " ".join(y)
 
-    wc = WordCloud(width=500,height=500,min_font_size=10,background_color='white')
+    wc = WordCloud(width=500, height=500, min_font_size=10, background_color='white')
+    
+    # Ensure that 'message' column is concatenated correctly
+    messages = temp['message'].str.cat(sep=" ")
+
     temp['message'] = temp['message'].apply(remove_stop_words)
-    df_wc = wc.generate(temp['message'].str.cat(sep=" "))
+    df_wc = wc.generate(messages)
     return df_wc
 
 def most_common_words(selected_user,df):
