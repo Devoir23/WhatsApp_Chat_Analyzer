@@ -2,7 +2,8 @@ from urlextract import URLExtract
 from wordcloud import WordCloud
 import pandas as pd
 from collections import Counter
-import emoji
+from emojipedia import emoji
+
 
 extract = URLExtract()
 
@@ -35,7 +36,8 @@ def most_busy_users(df):
         columns={'index': 'name', 'user': 'percent'})
     return x,df
 
-def create_wordcloud(selected_user, df):
+def create_wordcloud(selected_user,df):
+
     f = open('stop_hinglish.txt', 'r')
     stop_words = f.read()
 
@@ -45,13 +47,6 @@ def create_wordcloud(selected_user, df):
     temp = df[df['user'] != 'group_notification']
     temp = temp[temp['message'] != '<Media omitted>\n']
 
-    # Ensure 'message' column is of data type string
-    temp['message'] = temp['message'].astype(str)
-
-    # Check for and handle any non-string values in 'message'
-    # For example, if there are NaN values, you can fill them with an empty string:
-    temp['message'] = temp['message'].fillna('')
-
     def remove_stop_words(message):
         y = []
         for word in message.lower().split():
@@ -59,13 +54,9 @@ def create_wordcloud(selected_user, df):
                 y.append(word)
         return " ".join(y)
 
-    wc = WordCloud(width=500, height=500, min_font_size=10, background_color='white')
-    
-    # Ensure that 'message' column is concatenated correctly
-    messages = temp['message'].str.cat(sep=" ")
-
+    wc = WordCloud(width=500,height=500,min_font_size=10,background_color='white')
     temp['message'] = temp['message'].apply(remove_stop_words)
-    df_wc = wc.generate(messages)
+    df_wc = wc.generate(temp['message'].str.cat(sep=" "))
     return df_wc
 
 def most_common_words(selected_user,df):
@@ -89,17 +80,21 @@ def most_common_words(selected_user,df):
     most_common_df = pd.DataFrame(Counter(words).most_common(20))
     return most_common_df
 
-def emoji_helper(selected_user,df):
-    if selected_user != 'Overall':
-        df = df[df['user'] == selected_user]
-
-    emojis = []
-    for message in df['message']:
-        emojis.extend([c for c in message if c in emoji.UNICODE_EMOJI['en']])
-
-    emoji_df = pd.DataFrame(Counter(emojis).most_common(len(Counter(emojis))))
-
-    return emoji_df
+# def emoji_helper(selected_user, df):
+#
+#   if selected_user != 'Overall':
+#     df = df[df['user'] == selected_user]
+#
+#   emojis_to_search = ['😀', '😂', '😃', '😄', '😅', '😆', '😉', '😊', '😋', '😎']
+#
+#   emojis = []
+#
+#   for message in df['message']:
+#     emojis.extend([c for c in message if c in emoji])
+#
+#   emoji_df = pd.DataFrame(Counter(emojis).most_common(len(Counter(emojis))))
+#
+#   return emoji_df
 
 def monthly_timeline(selected_user,df):
 

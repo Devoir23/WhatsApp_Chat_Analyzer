@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>WhatsApp Chat Analyzer</title>
+</head>
+<body>
+    <h1>WhatsApp Chat Analyzer</h1>
+    <div class="result">
+        <p>Upload a WhatsApp chat export file to analyze:</p>
+        <form method="POST" enctype="multipart/form-data" action="/result.html">
+            <div class="label-wrapper">
+                <label for="file" class="custom-file-input-label">Choose File</label>
+                    <input type="file" id="file" name="file" accept=".txt" class="custom-file-input">
+                <span class="file-name">No file chosen</span>
+            </div>
+            <button type="submit">Upload and Analyze</button>
+        </form>
+    </div>
+
+</body>
+</html>

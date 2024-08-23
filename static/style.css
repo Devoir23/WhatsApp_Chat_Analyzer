@@ -1,0 +1,80 @@
+/* Style for the entire page */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    text-align: center;
+    padding: 20px;
+}
+
+/* Style for the page title */
+h1 {
+    color: #33cc33;
+}
+
+/* Style for the result section */
+.result {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    margin-top: 20px;
+    margin-right: 250px;
+    margin-left: 250px;
+}
+
+/* Style for the paragraph in the result section */
+.result p {
+    font-size: 18px;
+}
+
+/* Style for the label-wrapper */
+.label-wrapper {
+    text-align: center;
+    margin-top: 20px;
+    position: relative;
+}
+
+/* Style for the custom file input button */
+.custom-file-input-label {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+/* Style the label to look like a button */
+.custom-file-input-label {
+    cursor: pointer;
+}
+
+/* Style for the file input */
+.custom-file-input {
+    display: none;
+}
+
+/* Style for the file name display */
+.file-name {
+    display: inline-block;
+    margin-left: 10px;
+}
+
+/* Style for the upload button */
+button[type="submit"] {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+/* Style for the upload button on hover */
+button[type="submit"]:hover {
+    background-color: #2980b9;
+}

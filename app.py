@@ -76,18 +76,11 @@ if uploaded_file is not None:
             st.pyplot(fig)
 
         st.title("Weekly Activity Map")
-        # user_heatmap = helper.activity_heatmap(selected_user,df)
-        # fig,ax = plt.subplots()
-        # ax = sns.heatmap(user_heatmap)
-        # st.pyplot(fig)
-        user_heatmap = helper.activity_heatmap(selected_user, df)
-        if user_heatmap is not None and not user_heatmap.empty:
-            fig, ax = plt.subplots()
-            sns.heatmap(user_heatmap, ax=ax)
-            st.pyplot(fig)
-        else:
-            st.write("No data available for the heatmap.")
-        
+        user_heatmap = helper.activity_heatmap(selected_user,df)
+        fig,ax = plt.subplots()
+        ax = sns.heatmap(user_heatmap)
+        st.pyplot(fig)
+
         # finding the busiest users in the group(Group level)
         if selected_user == 'Overall':
             st.title('Most Busy Users')
